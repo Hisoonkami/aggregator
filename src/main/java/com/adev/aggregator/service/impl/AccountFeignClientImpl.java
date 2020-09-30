@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.adev.aggregator.service.AccountFeignClient;
 
-import java.util.List;
-
 @Service
 public class AccountFeignClientImpl implements AccountFeignClient {
 
@@ -39,6 +37,36 @@ public class AccountFeignClientImpl implements AccountFeignClient {
 
     @Override
     public ResponseEntity<BaseResult> findRoleByUser(Long userId) {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
+    public ResponseEntity<BaseResult> grantAuthorization(Long userId, Long roleId) {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
+    public ResponseEntity<BaseResult> addPermission(String permissionName, String permissionCode, String remark,String username) {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
+    public ResponseEntity<BaseResult> updatePermission(Long id, String permissionName, String permissionCode, String remark,String username) {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
+    public ResponseEntity<BaseResult> deletePermission(Long id,String username) {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
+    public ResponseEntity<BaseResult> findAllPermission() {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
+    public ResponseEntity<BaseResult> findByRole(Long roleId) {
         return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
     }
 }

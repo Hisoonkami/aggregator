@@ -36,7 +36,7 @@ public class RoleController {
         return accountFeignClient.addRole(roleName,roleCode,remark,username);
     }
 
-    @ApiOperation(value = "addRole", notes = "addRole")
+    @ApiOperation(value = "updateRole", notes = "updateRole")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "Authorization", value = "token", dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "long",paramType = "path"),
@@ -105,5 +105,19 @@ public class RoleController {
     @ResponseBody
     public ResponseEntity<BaseResult> findByUser(@RequestParam("userId") Long userId){
         return accountFeignClient.findRoleByUser(userId);
+    }
+
+    @ApiOperation(value = "grantAuthorization", notes = "grantAuthorization")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "Authorization", value = "token", dataType = "String",paramType = "header"),
+            @ApiImplicitParam(name = "userId", value = "userId", required = true, dataType = "long"),
+            @ApiImplicitParam(name = "roleId", value = "roleId", required = true, dataType = "long")
+
+    })
+    @RequestMapping(value = {"/grantAuthorization"},method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<BaseResult> grantAuthorization(@RequestParam("userId") Long userId,
+                                                         @RequestParam(value = "roleId")Long roleId){
+        return accountFeignClient.grantAuthorization(userId,roleId);
     }
 }

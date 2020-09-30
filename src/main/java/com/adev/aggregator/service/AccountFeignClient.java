@@ -6,8 +6,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @FeignClient(value = "common-account", fallback = AccountFeignClientImpl.class)
 public interface AccountFeignClient {
     @RequestMapping(value = {"/api/roles"},method = RequestMethod.POST)
@@ -38,9 +36,48 @@ public interface AccountFeignClient {
     @ResponseBody
     ResponseEntity<BaseResult> addPermissions(@PathVariable("id") Long id,
                                               @RequestHeader("permissionIds")Long[] permissionIds,
-                                              @RequestHeader("username") String username);
+                                              @RequestHeader(value = "username",required = false) String username);
 
     @RequestMapping(value = {"/api/roles/search/findByUser"},method = RequestMethod.GET)
     @ResponseBody
     ResponseEntity<BaseResult> findRoleByUser(@RequestParam("userId") Long userId);
+
+    /**
+     * 授权
+     * @param userId
+     * @param roleId
+     * @return
+     */
+    @RequestMapping(value = {"/grantAuthorization"},method = RequestMethod.POST)
+    @ResponseBody
+    ResponseEntity<BaseResult> grantAuthorization(@RequestParam("userId") Long userId,
+                                                  @RequestParam(value = "roleId")Long roleId);
+
+    @RequestMapping(value = {"/api/permissions"},method = RequestMethod.POST)
+    @ResponseBody
+    ResponseEntity<BaseResult> addPermission(@RequestParam("permissionName") String permissionName,
+                                             @RequestParam("permissionCode") String permissionCode,
+                                             @RequestParam(value = "remark",required = false) String remark,
+                                             @RequestHeader(value = "username",required = false) String username);
+
+    @RequestMapping(value = {"/api/permissions/{id}"},method = RequestMethod.PUT)
+    @ResponseBody
+    ResponseEntity<BaseResult> updatePermission(@PathVariable("id") Long id,
+                                                @RequestParam(value = "permissionName",required = false) String permissionName,
+                                                @RequestParam(value = "permissionCode",required = false) String permissionCode,
+                                                @RequestParam(value = "remark",required = false) String remark,
+                                                @RequestHeader(value = "username",required = false) String username);
+
+    @RequestMapping(value = {"/api/permissions/{id}"},method = RequestMethod.DELETE)
+    @ResponseBody
+    ResponseEntity<BaseResult> deletePermission(@PathVariable("id") Long id,
+                                                @RequestHeader(value = "username",required = false) String username);
+
+    @RequestMapping(value = {"/api/permissions"},method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<BaseResult> findAllPermission();
+
+    @RequestMapping(value = {"/api/permissions/search/findByRole"},method = RequestMethod.GET)
+    @ResponseBody
+    ResponseEntity<BaseResult> findByRole(@RequestParam("roleId") Long roleId);
 }
