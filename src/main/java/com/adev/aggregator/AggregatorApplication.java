@@ -99,7 +99,7 @@ public class AggregatorApplication {
 						throws ServletException, IOException {
 					super.onAuthenticationSuccess(request, response, authentication);
 				}
-            	 
+
             };
         }
     }
