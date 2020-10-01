@@ -11,6 +11,11 @@ import com.adev.aggregator.service.AccountFeignClient;
 public class AccountFeignClientImpl implements AccountFeignClient {
 
     @Override
+    public ResponseEntity<BaseResult> register(String loginName, String password, String username) {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
     public ResponseEntity<BaseResult> addRole(String roleName, String roleCode, String remark,String username) {
         return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
     }
