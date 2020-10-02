@@ -31,7 +31,9 @@ public class UserController {
     })
     @RequestMapping(value = {"/register"},method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<BaseResult> register(@RequestParam(value = "loginName") String loginName, @RequestParam(value = "password") String password,@RequestParam(value = "username") String username){
+    public ResponseEntity<BaseResult> register(@RequestParam(value = "loginName") String loginName,
+                                               @RequestParam(value = "password") String password,
+                                               @RequestParam(value = "username") String username){
         return accountFeignClient.register(loginName,password,username);
     }
 }

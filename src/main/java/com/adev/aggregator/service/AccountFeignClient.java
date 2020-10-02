@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(value = "common-account", fallback = AccountFeignClientImpl.class)
 public interface AccountFeignClient {
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = {"/api/users"},method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<BaseResult> register(String loginName,String password,String username);
+    ResponseEntity<BaseResult> register(@RequestParam("loginName")String loginName,
+                                        @RequestParam("password")String password,
+                                        @RequestParam("username")String username);
 
     @RequestMapping(value = {"/api/roles"},method = RequestMethod.POST)
     @ResponseBody
