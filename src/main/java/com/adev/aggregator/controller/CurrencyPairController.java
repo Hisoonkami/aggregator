@@ -76,4 +76,26 @@ public class CurrencyPairController {
 	public ResponseEntity<BaseResult> findByExchange(@RequestParam(value = "exchange") String exchange){
 		return gatherFeignClient.findCurrencyPairByExchange(exchange);
 	}
+
+	@ApiOperation(value = "findByExchange", notes = "findByExchange")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "Authorization", value = "Authorization", dataType = "String",paramType = "header"),
+			@ApiImplicitParam(name = "pairName", value = "pairName", dataType = "String"),
+			@ApiImplicitParam(name = "exchangeName", value = "exchangeName", dataType = "String"),
+			@ApiImplicitParam(name = "currencySymbol", value = "currencySymbol", dataType = "String"),
+			@ApiImplicitParam(name = "page", value = "page", dataType = "int"),
+			@ApiImplicitParam(name = "size", value = "size", dataType = "int"),
+			@ApiImplicitParam(name = "sort", value = "sort", dataType = "String"),
+
+	})
+	@RequestMapping(value = {"/search"},method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<BaseResult> searcCurrencyPair(@RequestParam(value = "pairName",required = false)String pairName,
+														@RequestParam(value = "exchangeName",required = false)String exchangeName,
+														@RequestParam(value = "currencySymbol",required = false)String currencySymbol,
+														@RequestParam(value = "page",required = false,defaultValue = "0")Integer page,
+														@RequestParam(value = "size",required = false,defaultValue = "15")Integer size,
+														@RequestParam(value = "sort",required = false)String sort){
+		return gatherFeignClient.searcCurrencyPair(pairName,exchangeName,currencySymbol,page,size,sort);
+	}
 }

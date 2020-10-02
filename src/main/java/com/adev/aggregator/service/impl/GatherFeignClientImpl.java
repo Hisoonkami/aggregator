@@ -34,6 +34,11 @@ public class GatherFeignClientImpl implements GatherFeignClient {
 	}
 
 	@Override
+	public ResponseEntity<BaseResult> searcCurrencyPair(String pairName, String exchangeName, String currencySymbol, Integer page, Integer size, String sort) {
+		return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+	}
+
+	@Override
 	public ResponseEntity<BaseResult> findOrderBookByExchangeAndPairName(String exchange, String pairName) {
 		return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
 	}

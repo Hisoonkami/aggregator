@@ -34,6 +34,15 @@ public interface GatherFeignClient {
 	@ResponseBody
 	ResponseEntity<BaseResult> findCurrencyPairByExchange(@RequestParam(value = "exchange") String exchange);
 
+	@RequestMapping(value = {"/api/currencyPairs/search"},method = RequestMethod.GET)
+	@ResponseBody
+	ResponseEntity<BaseResult> searcCurrencyPair(@RequestParam(value = "pairName",required = false)String pairName,
+														@RequestParam(value = "exchangeName",required = false)String exchangeName,
+														@RequestParam(value = "currencySymbol",required = false)String currencySymbol,
+														@RequestParam(value = "page",required = false,defaultValue = "0")Integer page,
+														@RequestParam(value = "size",required = false,defaultValue = "15")Integer size,
+														@RequestParam(value = "sort",required = false)String sort);
+
 	@RequestMapping(value = {"/api/orderBooks/search/findByExchangeAndPairName"},method = RequestMethod.GET)
 	@ResponseBody
 	ResponseEntity<BaseResult> findOrderBookByExchangeAndPairName(@RequestParam(value = "exchange") String exchange,@RequestParam(value = "pairName") String pairName);
