@@ -6,6 +6,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @FeignClient(value = "common-account", fallback = AccountFeignClientImpl.class)
 public interface AccountFeignClient {
     @RequestMapping(value = {"/api/users"},method = RequestMethod.POST)
@@ -86,4 +88,12 @@ public interface AccountFeignClient {
     @RequestMapping(value = {"/api/permissions/search/findByRole"},method = RequestMethod.GET)
     @ResponseBody
     ResponseEntity<BaseResult> findByRole(@RequestParam("roleId") Long roleId);
+
+    @RequestMapping(value = {"/api/accountBooks"},method = RequestMethod.POST)
+    @ResponseBody
+    ResponseEntity<BaseResult> orderPayment(@RequestParam("username") String username,
+                                                   @RequestParam("exchange")String exchange,
+                                                   @RequestParam("currencyPair")String currencyPair,
+                                                   @RequestParam("price") BigDecimal price,
+                                                   @RequestParam("number")BigDecimal number);
 }

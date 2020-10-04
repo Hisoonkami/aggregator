@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.adev.aggregator.service.AccountFeignClient;
 
+import java.math.BigDecimal;
+
 @Service
 public class AccountFeignClientImpl implements AccountFeignClient {
 
@@ -72,6 +74,11 @@ public class AccountFeignClientImpl implements AccountFeignClient {
 
     @Override
     public ResponseEntity<BaseResult> findByRole(Long roleId) {
+        return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
+    }
+
+    @Override
+    public ResponseEntity<BaseResult> orderPayment(String username, String exchange, String currencyPair, BigDecimal price, BigDecimal number) {
         return ResponseEntity.ok(BaseResult.failure(ResultEnum.INTERFACE_EXCEED_LOAD));
     }
 }
